@@ -35,7 +35,7 @@ public class Main {
         String str = "2333";
         person.name = str;
         str = "1234";
-        //不能改变person.name中的值，name中存储的是"2333"字符串在堆中的地址，
+        //这样无法改变person.name中的值，name中存储的是"2333"字符串在堆中的地址，
         //String类型非基本数据类型，但是它与其他类不同的是，它每次赋值时都会
         // 查找常量池中的是否存在，没有则创建该字符串
         System.out.println("引用赋值改变能否成功" + person.name + "," + person.id);
@@ -44,9 +44,16 @@ public class Main {
         System.out.println("原名" + person.name + "," + person.id);
         changePersonName(person);
         changePersonId(person);
+        //person.name和person.id的值发生了改变，person中存储的是person在堆中的地址
+        //堆中内容改变，栈中指向的堆地址不变，自然person.name和person.id改变
         System.out.println("对象传递改变属性值后" + person.name + "," + person.id);
+        person.name = "2333";
+        person.id = 2333;
         changeString(person.name);
         changeInt(person.id);
+        //这样无法改变String类型的值,一般来说，从c语言理解，传了一个数组，内容变了，自然能体现到主函数上
+        //但是String的重新赋值相当于把这个数组指向了一个新数组，并没有在原数组的内存地址上进行修改，
+        // 因此，在主函数中，并无改变，切记切记
         System.out.println("字符串传递改变值后" + person.name + "," + person.id);
         //System.out.println(person.name);
     }
